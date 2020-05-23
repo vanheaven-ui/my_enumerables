@@ -121,9 +121,30 @@ module Enumerable
     end
   end
 
+  def my_count(arg = nil)
+    count = 0
+    if arg.nil?
+      if block_given?
+        self.my_each do |element|
+          count += 1 if yield(element)
+        end
+        count
+      else
+        self.size
+      end
+    else
+      self.my_each do |element|
+        count += 1 if element === arg
+      end
+      count
+    end
+  end
+
+
+
 end
 
-arr = [1, 2, 3, 4, 5, 6]
+arr = [1, 2, 3, 3, 3, 4, 5, 6]
 h = {m: 1, n: 2}
 str_arr = ["ae", "abe", "abce", "bcde"]
 r = (0..6)
@@ -196,6 +217,19 @@ regex = /e/
 
 # p r.my_none? { |e| e > 3 }
 # p r.none? { |e| e > 3 }
+# puts "---------------------------------------"
+
+p arr.my_count(3) 
+p arr.count(3) 
+
+# p str_arr.my_count (regex)
+# p str_arr.count (regex)
+
+# p h.my_count  { |e, v| puts e == :m }
+# p h.count  { |e, v| puts e == :m }
+
+# p r.my_count { |e| e > 3 }
+# p r.count  { |e| e > 3 }
 # puts "---------------------------------------"
 
 # rubocop: disable Style/CaseEquality
