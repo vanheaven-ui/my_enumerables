@@ -105,6 +105,22 @@ module Enumerable
     end
   end
 
+  def my_none?(pattern = nil)
+    if pattern.nil?
+      if block_given?
+        self.my_each do |element|
+          return false if yield(element)
+        end
+        true
+      else
+        self.my_each do |element|
+          return false if element
+        end
+        true
+      end
+    end
+  end
+
 end
 
 arr = [1, 2, 3, 4, 5, 6]
@@ -167,6 +183,19 @@ regex = /e/
 
 # p r.my_any? { |e| e > 3 }
 # p r.any? { |e| e > 3 }
+# puts "---------------------------------------"
+
+# p arr.my_none? { |e| e == 1 } 
+# p arr.none? { |e| e == 1 } 
+
+# p str_arr.my_none?(regex)
+# p str_arr.none?(regex)
+
+# p h.my_none? { |e, v| puts e == :m }
+# p h.my_none? { |e, v| puts e == :m }
+
+# p r.my_none? { |e| e > 3 }
+# p r.none? { |e| e > 3 }
 # puts "---------------------------------------"
 
 # rubocop: disable Style/CaseEquality
