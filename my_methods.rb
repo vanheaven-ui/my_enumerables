@@ -140,6 +140,19 @@ module Enumerable
     end
   end
 
+  def my_map
+    return_arr = []
+    return to_enum(:my_map) unless block_given?
+
+    self.my_each do |element|
+      return_arr << yield(element)
+    end
+    return_arr
+  end
+
+  def my_inject
+  end
+
 
 
 end
@@ -219,8 +232,8 @@ regex = /e/
 # p r.none? { |e| e > 3 }
 # puts "---------------------------------------"
 
-p arr.my_count(3) 
-p arr.count(3) 
+# p arr.my_count(3) 
+# p arr.count(3) 
 
 # p str_arr.my_count (regex)
 # p str_arr.count (regex)
@@ -230,6 +243,19 @@ p arr.count(3)
 
 # p r.my_count { |e| e > 3 }
 # p r.count  { |e| e > 3 }
+# puts "---------------------------------------"
+
+# p arr.my_map { |e| e > 2 }
+# p arr.map { |e| e > 2 }
+
+# p str_arr.my_map  (regex)
+# p str_arr.map (regex)
+
+# p h.my_map  { |e, v| puts e == :m }
+# p h.map  { |e, v| puts e == :m }
+
+# p r.my_map  { |e| e > 3 }
+# p r.map  { |e| e > 3 }
 # puts "---------------------------------------"
 
 # rubocop: disable Style/CaseEquality
