@@ -87,6 +87,21 @@ module Enumerable
         end
         false
       end
+    elsif pattern.kind_of?(Regexp)
+      self.my_each do |element|
+        return true if element.match(pattern)
+      end
+      false
+    elsif pattern.kind_of?(Module)
+      self.my_each do |element|
+        return true if element.kind_of?(pattern)
+      end
+      false
+    else
+      self.my_each do |element|
+        return true if element === pattern
+      end
+      false
     end
   end
 
