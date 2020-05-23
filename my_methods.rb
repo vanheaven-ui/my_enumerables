@@ -43,12 +43,43 @@ module Enumerable
     return_arr
   end
 
+  def my_all?(pattern = nil)
+    if pattern.nil?
+      if block_given?
+        self.my_each do |element|
+          return false unless yield(element)
+        end
+      else
+        self.my_each do |element|
+          return false if element == false || element == nil
+        end
+        true
+      end
+    elsif pattern.kind_of?(Regexp)
+      self.my_each do |element|
+        return false unless element.match(pattern)
+      end
+      true
+    elsif pattern.kind_of?(Module)
+      self.my_each do |element|
+        return false unless element.kind_of?(pattern)
+      end
+      true
+    else
+      self.my_each do |element|
+        return false unless element === pattern
+      end
+      true
+    end
+  end
+
 end
 
 arr = [1, 2, 3, 4, 5, 6]
 h = {m: 1, n: 2}
-str_arr = ["a", "ab", "abc", "bcde"]
+str_arr = ["ae", "abe", "abce", "bcde"]
 r = (0..6)
+regex = /e/
 
 # arr.my_each { |e| e }
 # arr.each { |e| e }
@@ -73,11 +104,24 @@ r = (0..6)
 # p arr.my_select { |e| e > 3 }
 # p arr.select { |e| e > 3 }
 
-p h.select { |e, v| e == :m }
-p h.my_select { |e, v| e == :m }
+# p h.select { |e, v| puts e == :m }
+# p h.my_select { |e, v| puts e == :m }
 
-# p r.my_each { |e| e > 3 }
-# p r.each { |e| e > 3 }
+# p r.my_select { |e| e > 3 }
+# p r.select { |e| e > 3 }
+# puts "---------------------------------------"
+
+# p arr.my_all? 
+# p arr.all? 
+
+# p str_arr.my_all?(regex)
+# p str_arr.all?(regex)
+
+# p h.my_all? { |e, v| puts e == :m }
+# p h.all? { |e, v| puts e == :m }
+
+# p r.my_all? { |e| e > 3 }
+# p r.all? { |e| e > 3 }
 # puts "---------------------------------------"
 
 # rubocop: disable Style/CaseEquality
