@@ -49,6 +49,7 @@ module Enumerable
         self.my_each do |element|
           return false unless yield(element)
         end
+        true
       else
         self.my_each do |element|
           return false if element == false || element == nil
@@ -70,6 +71,22 @@ module Enumerable
         return false unless element === pattern
       end
       true
+    end
+  end
+
+  def my_any?(pattern = nil)
+    if pattern.nil?
+      if block_given?
+        self.my_each do |element|
+          return true if yield(element)
+        end
+        false
+      else 
+        self.my_each do |element|
+          return true unless element == false || element == nil 
+        end
+        false
+      end
     end
   end
 
@@ -122,6 +139,19 @@ regex = /e/
 
 # p r.my_all? { |e| e > 3 }
 # p r.all? { |e| e > 3 }
+# puts "---------------------------------------"
+
+# p arr.my_any? { |e| e == 0 } 
+# p arr.any? { |e| e == 0 } 
+
+# p str_arr.my_any?(regex)
+# p str_arr.any?(regex)
+
+# p h.my_any? { |e, v| puts e == :m }
+# p h.any? { |e, v| puts e == :m }
+
+# p r.my_any? { |e| e > 3 }
+# p r.any? { |e| e > 3 }
 # puts "---------------------------------------"
 
 # rubocop: disable Style/CaseEquality
