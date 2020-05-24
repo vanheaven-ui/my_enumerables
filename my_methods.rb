@@ -183,7 +183,7 @@ module Enumerable
       end
     else
       case operation
-      when symbol
+      when Symbol
         self.my_each do |element|
           accumulator = accumulator? accumulator.send(operation, element)
         end
@@ -297,7 +297,7 @@ p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
 # puts "---------------------------------------"
 
 p arr.my_inject(:+)
-p arr.inject (:+)
+p arr.inject(:+)
 
 # p str_arr.inject  (regex)
 # p str_arr.inject(regex)
