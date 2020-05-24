@@ -150,7 +150,25 @@ module Enumerable
     return_arr
   end
 
-  def my_inject
+  def my_inject(accumulator = nil, operation = nil)
+    if operation.nil?
+      if block_given?
+        if accumulator.nil?
+          accumulator = self.first
+          index = 1
+          while index < self.size
+            accumulator = yield(accumulator, self[index])
+            index += 1
+          end
+          accumulator
+        else
+          self.my_each do |element|
+            accumulator = yield(accumulator, element)
+          end
+          accumulator
+        end
+      end
+    end    
   end
 
 
@@ -257,5 +275,19 @@ regex = /e/
 # p r.my_map  { |e| e > 3 }
 # p r.map  { |e| e > 3 }
 # puts "---------------------------------------"
+
+p arr.my_inject { |e, n| e + n }
+p arr.inject { |e, n| e + n }
+
+# p str_arr.inject  (regex)
+# p str_arr.inject(regex)
+
+# p h.my_inject  { |e, v| puts e == :m }
+# p h.inject { |e, v| puts e == :m }
+
+# p r.my_inject  { |e| e > 3 }
+# p r.inject  { |e| e > 3 }
+# puts "---------------------------------------"
+
 
 # rubocop: disable Style/CaseEquality
