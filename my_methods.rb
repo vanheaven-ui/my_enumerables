@@ -35,12 +35,19 @@ module Enumerable
 
   def my_select
     return_arr = []
+    return_hash = {}
     return to_enum(:my_select) unless block_given?
-
-    self.my_each do |element|
-      return_arr << element if yield(element)
+    if self.kind_of?(Hash)
+      self.my_each do |key, value|
+        return_hash[key] = value if yield(key, value)
+      end
+      return_hash
+    else
+      self.my_each do |element|
+        return_arr << element if yield(element)
+      end
+      return_arr
     end
-    return_arr
   end
 
   def my_all?(pattern = nil)
@@ -168,11 +175,27 @@ module Enumerable
           accumulator
         end
       end
+    else
+      case operation
+      when symbol
+        lmd = lambda { |acc, elem| acc.send(operation, elem) }
+        # if accumulator.nil?
+          # accumulator = self.first
+          # while index < self.size
+          #   accumulator = lmd.call(accumulator, self[index])
+          # end 
+          # accumulator 
+        # else
+          self.my_each do |lmd|
+            accumulator = lmd.call(accumulator, element)
+          end
+          accumulator
+        # end
+      else
+        raise ArgumentError, "the operation must be a symbol"
+      end
     end    
   end
-
-
-
 end
 
 arr = [1, 2, 3, 3, 3, 4, 5, 6]
@@ -204,8 +227,8 @@ regex = /e/
 # p arr.my_select { |e| e > 3 }
 # p arr.select { |e| e > 3 }
 
-# p h.select { |e, v| puts e == :m }
-# p h.my_select { |e, v| puts e == :m }
+p h.select { |e, v| puts "Key: #{e} and Value: #{v}" }
+p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
 
 # p r.my_select { |e| e > 3 }
 # p r.select { |e| e > 3 }
@@ -276,8 +299,8 @@ regex = /e/
 # p r.map  { |e| e > 3 }
 # puts "---------------------------------------"
 
-p arr.my_inject { |e, n| e + n }
-p arr.inject { |e, n| e + n }
+p arr.my_inject(:+)
+p arr.inject (:+)
 
 # p str_arr.inject  (regex)
 # p str_arr.inject(regex)
