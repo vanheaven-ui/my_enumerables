@@ -150,14 +150,20 @@ module Enumerable
   def my_map
     return_arr = []
     return to_enum(:my_map) unless block_given?
-
-    self.my_each do |element|
-      return_arr << yield(element)
+    if self.kind_of?(Hash)
+      self.my_each do |key, value|
+        return_arr << yield(key, value)
+      end
+    else
+      self.my_each do |element|
+        return_arr << yield(element)
+      end
     end
     return_arr
   end
 
   def my_inject(accumulator = nil, operation = nil)
+    self.to_a unless self.kind_of?(Array)
     if operation.nil?
       if block_given?
         if accumulator.nil?
@@ -178,19 +184,10 @@ module Enumerable
     else
       case operation
       when symbol
-        lmd = lambda { |acc, elem| acc.send(operation, elem) }
-        # if accumulator.nil?
-          # accumulator = self.first
-          # while index < self.size
-          #   accumulator = lmd.call(accumulator, self[index])
-          # end 
-          # accumulator 
-        # else
-          self.my_each do |lmd|
-            accumulator = lmd.call(accumulator, element)
-          end
-          accumulator
-        # end
+        self.my_each do |element|
+          accumulator = accumulator? accumulator.send(operation, element)
+        end
+        accumulator
       else
         raise ArgumentError, "the operation must be a symbol"
       end
@@ -292,8 +289,8 @@ p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
 # p str_arr.my_map  (regex)
 # p str_arr.map (regex)
 
-# p h.my_map  { |e, v| puts e == :m }
-# p h.map  { |e, v| puts e == :m }
+# p h.my_map  { |e, v| puts "Key:#{e} and Value: #{v} excellent" }
+# p h.map  { |e, v| puts "Key:#{e} and Value: #{v} excellent" }
 
 # p r.my_map  { |e| e > 3 }
 # p r.map  { |e| e > 3 }
