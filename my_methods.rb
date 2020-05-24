@@ -164,34 +164,46 @@ module Enumerable
 
   def my_inject(accumulator = nil, operation = nil)
     self.to_a unless self.kind_of?(Array)
-    if operation.nil?
+    if accumulator.nil?
+      accumulator = self.first
       if block_given?
-        if accumulator.nil?
-          accumulator = self.first
-          index = 1
-          while index < self.size
-            accumulator = yield(accumulator, self[index])
-            index += 1
-          end
-          accumulator
-        else
-          self.my_each do |element|
-            accumulator = yield(accumulator, element)
-          end
-          accumulator
-        end
-      end
-    else
-      case operation
-      when Symbol
-        self.my_each do |element|
-          accumulator = accumulator? accumulator.send(operation, element)
+        index = 1
+        while index < self.size
+          accumulator = yield(accumulator, self[index])
+          index += 1
         end
         accumulator
       else
-        raise ArgumentError, "the operation must be a symbol"
+        case operation
+        when Symbol
+          self.my_each do |element|
+            accumulator = lambda do |accumulator, element|
+              accumulator.send(operation, element)
+            end
+          end
+          accumulator
+        else
+          raise ArgumentError, "the operation must be a symbol"
+        end
       end
-    end    
+    else
+      if block_given?
+        self.my_each do |element|
+          accumulator = yield(accumulator, element)
+        end
+        accumulator
+      else
+        case operation
+        when Symbol
+          self.my_each do |element|
+            accumulator = accumulator.send(operation, element)
+          end
+          accumulator
+        else
+          raise ArgumentError, "the operation must be a symbol"
+        end
+      end
+    end   
   end
 end
 
@@ -296,8 +308,8 @@ p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
 # p r.map  { |e| e > 3 }
 # puts "---------------------------------------"
 
-p arr.my_inject(:+)
-p arr.inject(:+)
+p arr.my_inject (:+)
+# p arr.inject (2) { |acc, val| acc + val }
 
 # p str_arr.inject  (regex)
 # p str_arr.inject(regex)
