@@ -163,52 +163,29 @@ module Enumerable
   end
 
   def my_inject(accumulator = nil, operation = nil)
-    self.to_a unless self.kind_of?(Array)
-    if accumulator.nil?
-      accumulator = self.first
+    self.to_a? unless self.kind_of?(Array)
+    if operation.nil?
       if block_given?
-        index = 1
-        while index < self.size
-          accumulator = yield(accumulator, self[index])
-          index += 1
+        if accumulator.nil?
+          accumulator = self.first
+          index = 1
+          while index < self.size
+            accumulator = yield(accumulator, self[index])
+          end
+        else
+          self.my_each do |element|
+            accumulator = yield(accumulator, element)
+          end
         end
         accumulator
-      else
-        case operation
-        when Symbol
-          self.my_each do |element|
-            accumulator = lambda do |accumulator, element|
-              accumulator.send(operation, element)
-            end
-          end
-          accumulator
-        else
-          raise ArgumentError, "the operation must be a symbol"
-        end
       end
-    else
-      if block_given?
-        self.my_each do |element|
-          accumulator = yield(accumulator, element)
-        end
-        accumulator
-      else
-        case operation
-        when Symbol
-          self.my_each do |element|
-            accumulator = accumulator.send(operation, element)
-          end
-          accumulator
-        else
-          raise ArgumentError, "the operation must be a symbol"
-        end
-      end
-    end   
+    end
   end
+
 end
 
 def multiply_els(array)
-  array.my_inject { |acc, elem| acc * elem }
+  array.my_inject(2) { |acc, elem| acc * elem }
 end
 
 puts multiply_els([2,4,5])
@@ -242,8 +219,8 @@ regex = /e/
 # p arr.my_select { |e| e > 3 }
 # p arr.select { |e| e > 3 }
 
-p h.select { |e, v| puts "Key: #{e} and Value: #{v}" }
-p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
+# p h.select { |e, v| puts "Key: #{e} and Value: #{v}" }
+# p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
 
 # p r.my_select { |e| e > 3 }
 # p r.select { |e| e > 3 }
@@ -314,8 +291,8 @@ p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
 # p r.map  { |e| e > 3 }
 # puts "---------------------------------------"
 
-p arr.my_inject (2) { |acc, val| acc + val }
-p arr.inject (2) { |acc, val| acc + val }
+p arr.my_inject(2) { |e, v| e + v }
+p arr.inject(2) { |e, v| e + v }
 
 # p str_arr.inject  (regex)
 # p str_arr.inject(regex)
