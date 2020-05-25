@@ -18,7 +18,7 @@ module Enumerable
     end
     self
   end
-  
+
   def my_each_with_index
     index = 0
     return to_enum(:my_each_with_index) unless block_given?
@@ -158,34 +158,53 @@ module Enumerable
     return_arr
   end
 
-  def my_inject(accumulator = nil, operation = nil)
+  def my_inject(acc = nil, oper = nil)
     to_a? unless is_a?(Array)
 
-    return unless operation.nil?
-
-    return unless block_given?
-      if accumulator.nil?
-        accumulator = first
+    case oper.nil?
+    when block_given?
+      if acc.nil?
+        acc = first
         index = 1
         while index < size
-          accumulator = yield(accumulator, self[index])
+          acc = yield(acc, self[index])
           index += 1
         end
       else
         my_each do |element|
-          accumulator = yield(accumulator, element)
+          acc = yield(acc, element)
         end
       end
-      accumulator
+      acc
+    else
+      case oper
+      when Symbol
+        if acc.nil?
+          acc = first
+          index = 1
+          until index >= size
+            acc = acc.send(oper, self[index])
+            index += 1
+          end
+        elsif acc
+          each do |elem|
+            acc = acc.send(oper, elem)
+          end
+        end
+        acc
+      end
     end
   end
 end
 
+# rubocop: enable Metrics/ModuleLength
+# rubocop: enable Style/CaseEquality
+# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 def multiply_els(array)
   array.my_inject(2) { |acc, elem| acc * elem }
 end
 
-puts multiply_els([2,4,5])
+puts multiply_els([2, 4, 5])
 
 arr = [1, 2, 3, 3, 3, 4, 5, 6]
 h = { m: 1, n: 2 }
@@ -193,16 +212,7 @@ h = { m: 1, n: 2 }
 r = (0..6)
 regex = /e/
 
-
-
 # p arr.my_all?
 
-# p arr.my_inject(2) { |e, v| e + v }
-# p arr.inject(2) { |e, v| e + v }
-
-# rubocop: enable Metrics/ModuleLength
-# rubocop: enable Style/CaseEquality
-# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-
-
-
+p arr.my_inject(2) { |e, v| e + v }
+p arr.inject(2) { |e, v| e + v }
