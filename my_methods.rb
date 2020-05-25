@@ -1,17 +1,18 @@
+# rubocop: disable Metrics/ModuleLength
 # rubocop: disable Style/CaseEquality
-
+# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 module Enumerable
   def my_each
     index = 0
     return to_enum(:my_each) unless block_given?
 
-    until index >= self.size
-      if self.kind_of?(Array)
+    until index >= size
+      if is_a?(Array)
         yield(self[index])
-      elsif self.kind_of?(Hash)
+      elsif is_a?(Hash)
         yield(keys[index], self[keys[index]])
-      elsif self.kind_of?(Range)
-        yield(self.to_a[index])
+      elsif is_a?(Range)
+        yield(to_a[index])
       end
       index += 1
     end
@@ -22,9 +23,9 @@ module Enumerable
     index = 0
     return to_enum(:my_each_with_index) unless block_given?
 
-    until index >= self.size
-      if self.kind_of?(Range) or (Hash)
-        yield(self.to_a[index], index)
+    until index >= size
+      if is_a?(Range) || is_a?(Hash)
+        yield(to_a[index], index)
       else
         yield(self[index], index)
       end
@@ -37,13 +38,14 @@ module Enumerable
     return_arr = []
     return_hash = {}
     return to_enum(:my_select) unless block_given?
-    if self.kind_of?(Hash)
-      self.my_each do |key, value|
+
+    if is_a?(Hash)
+      my_each do |key, value|
         return_hash[key] = value if yield(key, value)
       end
       return_hash
     else
-      self.my_each do |element|
+      my_each do |element|
         return_arr << element if yield(element)
       end
       return_arr
@@ -53,94 +55,87 @@ module Enumerable
   def my_all?(pattern = nil)
     if pattern.nil?
       if block_given?
-        self.my_each do |element|
+        my_each do |element|
           return false unless yield(element)
         end
-        true
       else
-        self.my_each do |element|
-          return false if element == false || element == nil
+        my_each do |element|
+          return false if element == false || element.nil?
         end
-        true
       end
-    elsif pattern.kind_of?(Regexp)
-      self.my_each do |element|
+      true
+    elsif pattern.is_a?(Regexp)
+      my_each do |element|
         return false unless element.match(pattern)
       end
       true
-    elsif pattern.kind_of?(Module)
-      self.my_each do |element|
-        return false unless element.kind_of?(pattern)
+    elsif pattern.is_a?(Module)
+      my_each do |element|
+        return false unless element.is_a?(pattern)
       end
-      true
     else
-      self.my_each do |element|
+      my_each do |element|
         return false unless element === pattern
       end
-      true
     end
+    true
   end
 
   def my_any?(pattern = nil)
     if pattern.nil?
       if block_given?
-        self.my_each do |element|
+        my_each do |element|
           return true if yield(element)
         end
-        false
-      else 
-        self.my_each do |element|
-          return true unless element == false || element == nil 
+      else
+        my_each do |element|
+          return true unless element == false || element.nil?
         end
-        false
       end
-    elsif pattern.kind_of?(Regexp)
-      self.my_each do |element|
+    elsif pattern.is_a?(Regexp)
+      my_each do |element|
         return true if element.match(pattern)
       end
-      false
-    elsif pattern.kind_of?(Module)
-      self.my_each do |element|
-        return true if element.kind_of?(pattern)
+    elsif pattern.is_a?(Module)
+      my_each do |element|
+        return true if element.is_a?(pattern)
       end
-      false
     else
-      self.my_each do |element|
+      my_each do |element|
         return true if element === pattern
       end
-      false
     end
+    false
   end
 
   def my_none?(pattern = nil)
-    if pattern.nil?
-      if block_given?
-        self.my_each do |element|
-          return false if yield(element)
-        end
-        true
-      else
-        self.my_each do |element|
-          return false if element
-        end
-        true
+    return unless pattern.nil?
+
+    if block_given?
+      my_each do |element|
+        return false if yield(element)
+      end
+    else
+      my_each do |element|
+        return false if element
       end
     end
+    true
   end
 
   def my_count(arg = nil)
     count = 0
     if arg.nil?
       if block_given?
-        self.my_each do |element|
+        my_each do |element|
           count += 1 if yield(element)
         end
         count
       else
-        self.size
+        size
       end
     else
-      self.my_each do |element|
+      my_each do |element|
         count += 1 if element === arg
       end
       count
@@ -150,12 +145,13 @@ module Enumerable
   def my_map
     return_arr = []
     return to_enum(:my_map) unless block_given?
-    if self.kind_of?(Hash)
-      self.my_each do |key, value|
+
+    if is_a?(Hash)
+      my_each do |key, value|
         return_arr << yield(key, value)
       end
     else
-      self.my_each do |element|
+      my_each do |element|
         return_arr << yield(element)
       end
     end
@@ -163,25 +159,26 @@ module Enumerable
   end
 
   def my_inject(accumulator = nil, operation = nil)
-    self.to_a? unless self.kind_of?(Array)
-    if operation.nil?
-      if block_given?
-        if accumulator.nil?
-          accumulator = self.first
-          index = 1
-          while index < self.size
-            accumulator = yield(accumulator, self[index])
-          end
-        else
-          self.my_each do |element|
-            accumulator = yield(accumulator, element)
-          end
+    to_a? unless is_a?(Array)
+
+    return unless operation.nil?
+
+    return unless block_given?
+      if accumulator.nil?
+        accumulator = first
+        index = 1
+        while index < size
+          accumulator = yield(accumulator, self[index])
+          index += 1
         end
-        accumulator
+      else
+        my_each do |element|
+          accumulator = yield(accumulator, element)
+        end
       end
+      accumulator
     end
   end
-
 end
 
 def multiply_els(array)
@@ -191,118 +188,21 @@ end
 puts multiply_els([2,4,5])
 
 arr = [1, 2, 3, 3, 3, 4, 5, 6]
-h = {m: 1, n: 2}
-str_arr = ["ae", "abe", "abce", "bcde"]
+h = { m: 1, n: 2 }
+# str_arr = ['ae', 'abe', 'abce', 'bcde']
 r = (0..6)
 regex = /e/
 
-# arr.my_each { |e| e }
-# arr.each { |e| e }
-
-# p h.my_each { |e, v| puts "Key: #{e} and Value: #{v}" }
-# p h.each { |e, v| puts "Key: #{e} and Value: #{v}" }
-
-# p r.my_each { |e| e }
-# p r.each { |e| e }
-# puts "---------------------------------------"
-
-# p arr.my_each_with_index { |e, i| p "#{i}. #{e}" }
-# p arr.each_with_index { |e, i| p "#{i}. #{e}" }
-
-# p h.my_each_with_index { |e, i| puts "#{i}. #{e}" }
-# p h.each_with_index { |e, i| puts "#{i}. #{e}" }
-
-# p r.my_each_with_index { |e, i| "#{i}. #{e}" }
-# p r.each_with_index { |e, i| "#{i}. #{e}" }
-# puts "---------------------------------------"
-
-# p arr.my_select { |e| e > 3 }
-# p arr.select { |e| e > 3 }
-
-# p h.select { |e, v| puts "Key: #{e} and Value: #{v}" }
-# p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
-
-# p r.my_select { |e| e > 3 }
-# p r.select { |e| e > 3 }
-# puts "---------------------------------------"
-
-# p arr.my_all? 
-# p arr.all? 
-
-# p str_arr.my_all?(regex)
-# p str_arr.all?(regex)
-
-# p h.my_all? { |e, v| puts e == :m }
-# p h.all? { |e, v| puts e == :m }
-
-# p r.my_all? { |e| e > 3 }
-# p r.all? { |e| e > 3 }
-# puts "---------------------------------------"
-
-# p arr.my_any? { |e| e == 0 } 
-# p arr.any? { |e| e == 0 } 
-
-# p str_arr.my_any?(regex)
-# p str_arr.any?(regex)
-
-# p h.my_any? { |e, v| puts e == :m }
-# p h.any? { |e, v| puts e == :m }
-
-# p r.my_any? { |e| e > 3 }
-# p r.any? { |e| e > 3 }
-# puts "---------------------------------------"
-
-# p arr.my_none? { |e| e == 1 } 
-# p arr.none? { |e| e == 1 } 
-
-# p str_arr.my_none?(regex)
-# p str_arr.none?(regex)
-
-# p h.my_none? { |e, v| puts e == :m }
-# p h.my_none? { |e, v| puts e == :m }
-
-# p r.my_none? { |e| e > 3 }
-# p r.none? { |e| e > 3 }
-# puts "---------------------------------------"
-
-# p arr.my_count(3) 
-# p arr.count(3) 
-
-# p str_arr.my_count (regex)
-# p str_arr.count (regex)
-
-# p h.my_count  { |e, v| puts e == :m }
-# p h.count  { |e, v| puts e == :m }
-
-# p r.my_count { |e| e > 3 }
-# p r.count  { |e| e > 3 }
-# puts "---------------------------------------"
-
-# p arr.my_map { |e| e > 2 }
-# p arr.map { |e| e > 2 }
-
-# p str_arr.my_map  (regex)
-# p str_arr.map (regex)
-
-# p h.my_map  { |e, v| puts "Key:#{e} and Value: #{v} excellent" }
-# p h.map  { |e, v| puts "Key:#{e} and Value: #{v} excellent" }
-
-# p r.my_map  { |e| e > 3 }
-# p r.map  { |e| e > 3 }
-# puts "---------------------------------------"
-
-p arr.my_inject(2) { |e, v| e + v }
-p arr.inject(2) { |e, v| e + v }
-
-# p str_arr.inject  (regex)
-# p str_arr.inject(regex)
-
-# p h.my_inject  { |e, v| puts e == :m }
-# p h.inject { |e, v| puts e == :m }
-
-# p r.my_inject  { |e| e > 3 }
-# p r.inject  { |e| e > 3 }
-# puts "---------------------------------------"
 
 
-# rubocop: disable Style/CaseEquality
+# p arr.my_all?
+
+# p arr.my_inject(2) { |e, v| e + v }
+# p arr.inject(2) { |e, v| e + v }
+
+# rubocop: enable Metrics/ModuleLength
+# rubocop: enable Style/CaseEquality
+# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+
+
+
