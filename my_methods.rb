@@ -1,6 +1,4 @@
-# rubocop: disable Metrics/ModuleLength
-# rubocop: disable Style/CaseEquality
-# rubocop: disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+# rubocop: disable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
 module Enumerable
   def my_each
     index = 0
@@ -159,60 +157,50 @@ module Enumerable
   end
 
   def my_inject(acc = nil, oper = nil)
-    to_a? unless is_a?(Array)
-
-    case oper.nil?
-    when block_given?
-      if acc.nil?
+    to_a unless is_a?(Array)
+    if block_given? && oper.nil?
+      if !acc.nil?
+        my_each do |element|
+          acc = yield(acc, element)
+        end
+        acc
+      elsif acc.nil?
         acc = first
         index = 1
         while index < size
           acc = yield(acc, self[index])
           index += 1
         end
-      else
-        my_each do |element|
-          acc = yield(acc, element)
-        end
+        acc
       end
-      acc
-    else
+    elsif !block_given?
       case oper
       when Symbol
-        if acc.nil?
+        my_lambda = lambda do |memo, val|
+          memo.send(oper, val)
+        end
+        if !acc.nil?
+          my_each do |element|
+            acc = acc.send(oper, element)
+          end
+        elsif acc.nil?
           acc = first
           index = 1
-          until index >= size
-            acc = acc.send(oper, self[index])
-            index += 1
-          end
-        elsif acc
-          each do |elem|
-            acc = acc.send(oper, elem)
-          end
+          return unless index < size
+
+          acc = my_lambda.call(acc, self[index])
         end
         acc
+      else
+        raise ArgumentError, 'Please provide a symbol'
       end
     end
   end
 end
 
-# rubocop: enable Metrics/ModuleLength
-# rubocop: enable Style/CaseEquality
-# rubocop: enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 def multiply_els(array)
   array.my_inject(2) { |acc, elem| acc * elem }
 end
 
 puts multiply_els([2, 4, 5])
-
-arr = [1, 2, 3, 3, 3, 4, 5, 6]
-h = { m: 1, n: 2 }
-# str_arr = ['ae', 'abe', 'abce', 'bcde']
-r = (0..6)
-regex = /e/
-
-# p arr.my_all?
-
-p arr.my_inject(2) { |e, v| e + v }
-p arr.inject(2) { |e, v| e + v }
+# rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
