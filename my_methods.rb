@@ -181,12 +181,12 @@ module Enumerable
         end
         if !acc.nil?
           my_each do |element|
-            acc = acc.send(oper, element)
+            acc = my_lambda.call(acc, element)
           end
         elsif acc.nil?
           acc = first
           index = 1
-          return unless index < size
+          return until index >= size
 
           acc = my_lambda.call(acc, self[index])
         end
@@ -204,3 +204,7 @@ end
 
 puts multiply_els([2, 4, 5])
 # rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
+
+arr = [1, 2, 3, 4, 5]
+
+p arr.my_inject(:+)
