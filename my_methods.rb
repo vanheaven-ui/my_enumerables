@@ -207,6 +207,12 @@ module Enumerable
   end
 end
 
+def multiply_els(array)
+  array.my_inject { |acc, elem| acc * elem }
+end
+
+puts multiply_els([2,4,5])
+
 arr = [1, 2, 3, 3, 3, 4, 5, 6]
 h = {m: 1, n: 2}
 str_arr = ["ae", "abe", "abce", "bcde"]
@@ -308,8 +314,8 @@ p h.my_select { |e, v| puts "Key: #{e} and Value: #{v}" }
 # p r.map  { |e| e > 3 }
 # puts "---------------------------------------"
 
-p arr.my_inject (:+)
-# p arr.inject (2) { |acc, val| acc + val }
+p arr.my_inject (2) { |acc, val| acc + val }
+p arr.inject (2) { |acc, val| acc + val }
 
 # p str_arr.inject  (regex)
 # p str_arr.inject(regex)
