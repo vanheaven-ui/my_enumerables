@@ -204,7 +204,3 @@ end
 
 puts multiply_els([2, 4, 5])
 # rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
-
-arr = [1, 2, 3, 4, 5]
-
-p arr.my_inject(:+)
