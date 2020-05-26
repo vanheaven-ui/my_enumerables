@@ -1,8 +1,7 @@
-<div text_align = "center">
+
+  
 # My Custom Enumerable Methods
-
-
-
+  
 [![View Code](https://img.shields.io/badge/View%20-Code-green)](https://github.com/vanheaven-ui/my_enumerables/tree/my_enumerables)
 [![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)](https://github.com/vanheaven-ui/my_enumerables/issues)
 [![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)](https://github.com/vanheaven-ui/my_enumerables/pulls)
@@ -11,39 +10,34 @@
 [![LinkedIn follow](https://img.shields.io/badge/LinkedIn-Ezekiel-%232867B2)](https://www.linkedin.com/in/vanheaven/)
 
 
-
 ## 📝 Content
 <a href="#about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href="#about">Methods</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#method">Methods</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#ins">Installing</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#ldl">Live Demo</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-<a href="#prtn">Presentation</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#author">Author</a>
 
-<div text-align = "center">
-## 🧐 <h3 align = "center">About <a name = "about"></a>
-<h3 align="center">This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module. </h3>
-</div>
+## <h3>About <a name = "about"></a></h3>
+This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module. 
 
-<h4>Methods</h4>
-<p>The custom methods created are listed below:</p>
-<li>my_each</li><span> according to ruby docs at:<a href=""></a></span>
-<li>my_each_with_index</</li><span> according to ruby docs at:<a href=""></a></span>
-<li>my_select</li><span> according to ruby docs at:<a href=""></a></span>
-<li>my_all?</li><span> according to ruby docs at:<a href="https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-all-3F"></a></span>
-<li>my_any?</li><span> according to ruby docs at:<a href=""></a></span>
-<li>my_none?</li><span> according to ruby docs at:<a href=""></a></span>
-<li>my_count</li><span> according to ruby docs at:<a href=""></a></span>
-<li>my_map</li><span> according to ruby docs at:<a href=""></a></span>
-<li>my_inject</li><span> according to ruby docs at:<a href=""></a></span>
+<h3>Methods <a name = "method"></a></h3>
+<h4>The custom methods created are listed below:</h4>
+<li>my_each[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_each_with_index[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_select[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_all?[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li></li>
+<li>my_any?[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_none?[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_count[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_map[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_inject[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
 
-
-## 🔧 Built with<a name = "built_using"></a>
+## 🔧 Built with<a name = "with"></a>
 
 - Ruby
 
-## 🔴 Live Demo <a name = "live-demo"></a>
+## 🔴 Live Demo <a name = "ldl"></a>
 
 [Live Demo Link](https://repl.it/@vanheavenui/myrubyenumerables#main.rb)
 
@@ -52,7 +46,7 @@
 - Fork the repo to your remote repository.
 - Clone or download the repository to a local directory on your computer.
 
-## 🛠 Installing <a name = "installing"></a>
+## 🛠 Installing <a name = "ins"></a>
 
 - run npm install to install the dependencies for the project.
 
@@ -79,4 +73,3 @@ Give a ⭐️ if you like this project!
 ## :clap: Acknowledgements
 [!Ruby enumerable documentation here:] https://ruby-doc.org/core-2.7.1/Enumerable.html
 
-</div>
