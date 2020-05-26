@@ -71,5 +71,5 @@ Feel free to check the [issues page](https://github.com/vanheaven-ui/my_enumerab
 Give a ⭐️ if you like this project!
 
 ## :clap: Acknowledgements
-![Ruby enumerable documentation here:] https://ruby-doc.org/core-2.7.1/Enumerable.html
+[Ruby enumerable documentation here:] https://ruby-doc.org/core-2.7.1/Enumerable.html
 
