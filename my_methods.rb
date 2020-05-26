@@ -1,4 +1,4 @@
-# rubocop: disable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
+# rubocop: disable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 module Enumerable
   def my_each
     index = 0
@@ -153,8 +153,9 @@ module Enumerable
   end
 
   def my_map
+    return unless prc.is_a?(Proc)
+
     return_arr = []
-    return to_enum(:my_map) unless block_given?
 
     if is_a?(Hash)
       my_each do |key, value|
@@ -188,7 +189,7 @@ module Enumerable
       end
     elsif !block_given?
       if oper.is_a?(Symbol)
-        if !acc.nil?
+        unless acc.nil?
           my_each do |element|
             acc = acc.send(oper, element)
           end
@@ -198,7 +199,7 @@ module Enumerable
         if acc.is_a?(Symbol)
           oper = acc
           acc = first
-        end 
+        end
         index = 1
         while index < size
           acc = acc.send(oper, self[index])
@@ -208,24 +209,19 @@ module Enumerable
       else
         raise ArgumentError, 'Please provide a symbol'
       end
-    end 
+    end
   end
 
-  def my_map(prc, &block)
-    return unless prc.is_a?(Proc)
+  def my_map_with_proc(proc)
+    return my_map unless proc.is_a?(Proc)
 
-    return_arr = []
+    map(&proc)
+  end
 
-    if is_a?(Hash)
-      my_each do |key, value|
-        return_arr << prc.call(key, value)
-      end
-    else
-      my_each do |element|
-        return_arr << prc.call(element)
-      end
-    end
-    return_arr
+  def my_map_takes_proc_and_block(proc, &block)
+    return my_map_with_proc if proc.is_a?(Proc)
+
+    my_map(&block)
   end
 end
 
@@ -234,12 +230,6 @@ def multiply_els(array)
 end
 
 puts multiply_els([2, 4, 5])
-# rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
-
-# p ["a", "b", "c", "d"].my_none? (/e/)
-# p [1, 2, 3, 5].none? { |elem| elem > 9 }
-
-# proc = Proc.new{ |elem| elem + 1 }
-# x = 3
-
-# p [1, 2, 3, 4, 5, 6].my_map (proc) {|elem| elem + 2 }
+# rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+proc = Proc.new{ |n| n + 3 }
+p [1, 2, 3, 4, 5].my_map(proc) { |num| num + 2 }
