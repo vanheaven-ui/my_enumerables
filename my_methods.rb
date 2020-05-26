@@ -107,15 +107,27 @@ module Enumerable
   end
 
   def my_none?(pattern = nil)
-    return unless pattern.nil?
-
-    if block_given?
+    if pattern.nil?
+      if block_given?
+        my_each do |element|
+          return false if yield(element)
+        end
+      else
+        my_each do |element|
+          return false if element
+        end
+      end
+    elsif pattern.is_a?(Regexp)
       my_each do |element|
-        return false if yield(element)
+        return false if element.match(pattern)
+      end
+    elsif pattern.is_a?(Class)
+      my_each do |element|
+        return false if element.is_a?(pattern)
       end
     else
       my_each do |element|
-        return false if element
+        return false if element === pattern
       end
     end
     true
@@ -184,7 +196,6 @@ module Enumerable
             acc = my_lambda.call(acc, element)
           end
         elsif acc.nil?
-          acc = first
           index = 0
           my_each do |element|
             index += 1
@@ -199,11 +210,35 @@ module Enumerable
       end
     end
   end
+
+  def my_map(prc, &block)
+    return unless prc.is_a?(Proc)
+    return_arr = []
+
+    if is_a?(Hash)
+      my_each do |key, value|
+        return_arr << prc.call(key, value)
+      end
+    else
+      my_each do |element|
+        return_arr << prc.call(element)
+      end
+    end
+    return_arr
+  end
 end
 
 def multiply_els(array)
-  array.my_inject { |acc, elem| acc * elem }
+  array.my_inject (:+)
 end
 
 puts multiply_els([2, 4, 5])
 # rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity, Metrics/BlockNesting
+
+# p ["a", "b", "c", "d"].my_none? (/e/)
+# p [1, 2, 3, 5].none? { |elem| elem > 9 }
+
+# proc = Proc.new{ |elem| elem + 1 }
+# x = 3
+
+# p [1, 2, 3, 4, 5, 6].my_map (proc) {|elem| elem + 2 }
