@@ -185,10 +185,12 @@ module Enumerable
           end
         elsif acc.nil?
           acc = first
-          index = 1
-          return until index >= size
-
-          acc = my_lambda.call(acc, self[index])
+          index = 0
+          my_each do |element|
+            index += 1
+            next if index == 1
+            acc = my_lambda.call(acc, element)
+          end
         end
         acc
       else
@@ -199,7 +201,7 @@ module Enumerable
 end
 
 def multiply_els(array)
-  array.my_inject(2) { |acc, elem| acc * elem }
+  array.my_inject { |acc, elem| acc * elem }
 end
 
 puts multiply_els([2, 4, 5])
