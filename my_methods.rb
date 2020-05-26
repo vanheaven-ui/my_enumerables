@@ -170,6 +170,7 @@ module Enumerable
 
   def my_inject(acc = nil, oper = nil)
     to_a unless is_a?(Array)
+
     if block_given? && oper.nil?
       if !acc.nil?
         my_each do |element|
@@ -186,33 +187,33 @@ module Enumerable
         acc
       end
     elsif !block_given?
-      case oper
-      when Symbol
-        my_lambda = lambda do |memo, val|
-          memo.send(oper, val)
-        end
+      if oper.is_a?(Symbol)
         if !acc.nil?
           my_each do |element|
-            acc = my_lambda.call(acc, element)
+            acc = acc.send(oper, element)
           end
-        elsif acc.nil?
-          index = 0
-          my_each do |element|
-            index += 1
-            next if index == 1
-
-            acc = my_lambda.call(acc, element)
-          end
+          acc
+        end
+      elsif oper.nil?
+        if acc.is_a?(Symbol)
+          oper = acc
+          acc = first
+        end 
+        index = 1
+        while index < size
+          acc = acc.send(oper, self[index])
+          index += 1
         end
         acc
       else
         raise ArgumentError, 'Please provide a symbol'
       end
-    end
+    end 
   end
 
   def my_map(prc, &block)
     return unless prc.is_a?(Proc)
+
     return_arr = []
 
     if is_a?(Hash)
@@ -229,7 +230,7 @@ module Enumerable
 end
 
 def multiply_els(array)
-  array.my_inject (:+)
+  array.my_inject(:*)
 end
 
 puts multiply_els([2, 4, 5])
