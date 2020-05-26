@@ -19,19 +19,19 @@
 <a href="#author">Author</a>
 
 ## <h3>About <a name = "about"></a></h3>
-This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module. 
+This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module so that they emulate the inbuilt ruby methods. 
 
 <h3>Methods <a name = "method"></a></h3>
 <h4>The custom methods created are listed below:</h4>
-<li>my_each[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
-<li>my_each_with_index[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
-<li>my_select[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
-<li>my_all?[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li></li>
-<li>my_any?[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
-<li>my_none?[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
-<li>my_count[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
-<li>my_map[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
-<li>my_inject[ruby documentation](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-each_cons)</li>
+<li>my_each</li>
+<li>my_each_with_index</li>
+<li>my_select</li>
+<li>my_all?</li>
+<li>my_any</li>
+<li>my_none?</li>
+<li>my_count</li>
+<li>my_map</li>
+<li>my_inject</li>
 
 ## 🔧 Built with<a name = "with"></a>
 
@@ -56,7 +56,7 @@ This project was completed under microverse remote software development curricul
 
 - Github: [@vanheaven-ui](https://github.com/kevinfrontend)
 - Twitter: [@MworekwaE](https://twitter.com/kevinfrontend)
-- Linkedin: [@linkedin]](https://www.linkedin.com/in/vanheaven/)
+- Linkedin: [@linkedin](https://www.linkedin.com/in/vanheaven/)
 - Email: [ezekiel](mailto:vanheaven6@gmail.com)
 
 ## 🤝 Contributing
@@ -71,5 +71,5 @@ Feel free to check the [issues page](https://github.com/vanheaven-ui/my_enumerab
 Give a ⭐️ if you like this project!
 
 ## :clap: Acknowledgements
-[!Ruby enumerable documentation here:] https://ruby-doc.org/core-2.7.1/Enumerable.html
+![Ruby enumerable documentation here:] https://ruby-doc.org/core-2.7.1/Enumerable.html
 
