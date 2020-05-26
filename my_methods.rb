@@ -189,6 +189,7 @@ module Enumerable
           my_each do |element|
             index += 1
             next if index == 1
+
             acc = my_lambda.call(acc, element)
           end
         end
