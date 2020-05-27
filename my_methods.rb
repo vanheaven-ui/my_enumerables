@@ -152,15 +152,17 @@ module Enumerable
     end
   end
 
-  def my_map
+  def my_map(&block)
+    return to_enum(:my_map) unless block_given?
+
     return_arr = []
     if is_a?(Hash)
       my_each do |key, value|
-        return_arr << yield(key, value)
+        return_arr << block.call(key, value)
       end
     else
       my_each do |element|
-        return_arr << yield(element)
+        return_arr << block.call(element)
       end
     end
     return_arr
@@ -206,33 +208,6 @@ module Enumerable
       else
         raise ArgumentError, 'Please provide a symbol'
       end
-    end
-  end
-
-  def my_map_with_proc_and_block(prc, &block)
-    return_arr = []
-    if prc.is_a?(Proc) && block_given?
-      if is_a?(Hash)
-        my_each do |key, value|
-          return_arr << prc.call(key, value)
-        end
-      else
-        my_each do |element|
-          return_arr << prc.call(element)
-        end
-      end
-      return_arr
-    elsif prc.nil? && block_given?
-      if is_a?(Hash)
-        my_each do |key, value|
-          return_arr << block.call(key, value)
-        end
-      else
-        my_each do |element|
-          return_arr << block.call(element)
-        end
-      end
-      return_arr
     end
   end
 end
