@@ -37,9 +37,14 @@ This project was completed under microverse remote software development curricul
 
 - Ruby
 
+
 ## 🔴 Live Demo <a name = "ldl"></a>
 
-[Live Demo Link](https://repl.it/@vanheavenui/myrubyenumerables#main.rb)
+[Live Demo Link]
+
+[![Run on Repl.it](https://repl.it/badge/github/vanheaven-ui/my_enumerables)](https://repl.it/github/vanheaven-ui/my_enumerables)
+
+
 
 ## 🔨 Setup
 
