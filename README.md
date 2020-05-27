@@ -1,6 +1,4 @@
-<h1 align="center"> My Custom Enumerable Methods<h1>
-
-<div align="center">
+# My Custom Enumerable Methods
   
 [![View Code](https://img.shields.io/badge/View%20-Code-green)](https://github.com/vanheaven-ui/my_enumerables/tree/my_enumerables)
 [![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)](https://github.com/vanheaven-ui/my_enumerables/issues)
@@ -9,11 +7,8 @@
 [![Twitter Follow](https://img.shields.io/badge/Twitter-Ezekiel-%231DA1F2)](https://twitter.com/MworekwaE)
 [![LinkedIn follow](https://img.shields.io/badge/LinkedIn-Ezekiel-%232867B2)](https://www.linkedin.com/in/vanheaven/)
 
-</div>
 
-<div align="center">
-
-## 📝 Content
+## Content
 
 <a text-align="center" href="#about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#method">Methods</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -22,13 +17,9 @@
 <a href="#ldl">Live Demo</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#author">Author</a>
 
-</div>
 
-
-## <h3 align="center">About <a name = "about"></a></h3>
-<p align="center">
+## About <a name = "about"></a>
 This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module so that they emulate the inbuilt ruby methods. 
-</p>
 
 <h3>Methods <a name = "method"></a></h3>
 <h4>The custom methods created are listed below:</h4>
