@@ -152,21 +152,31 @@ module Enumerable
     end
   end
 
-  def my_map
-    return unless prc.is_a?(Proc)
-
+  def my_map(prc, &block)
     return_arr = []
-
-    if is_a?(Hash)
-      my_each do |key, value|
-        return_arr << yield(key, value)
+    if prc.is_a?(Proc) && block_given?
+      if is_a?(Hash)
+        my_each do |key, value|
+          return_arr << prc.call(key, value)
+        end
+      else
+        my_each do |element|
+          return_arr << prc.call(element)
+        end
       end
-    else
-      my_each do |element|
-        return_arr << yield(element)
+      return_arr
+    elsif prc.nil? && block_given?
+      if is_a?(Hash)
+        my_each do |key, value|
+          return_arr << block.call(key, value)
+        end
+      else
+        my_each do |element|
+          return_arr << block.call(element)
+        end
       end
+      return_arr
     end
-    return_arr
   end
 
   def my_inject(acc = nil, oper = nil)
@@ -211,25 +221,11 @@ module Enumerable
       end
     end
   end
-
-  def my_map_with_proc(proc)
-    return my_map unless proc.is_a?(Proc)
-
-    map(&proc)
-  end
-
-  def my_map_takes_proc_and_block(proc, &block)
-    return my_map_with_proc if proc.is_a?(Proc)
-
-    my_map(&block)
-  end
 end
 
 def multiply_els(array)
-  array.my_inject(:*)
+  array.my_inject { |e, num| e * num }
 end
 
 puts multiply_els([2, 4, 5])
 # rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-proc = Proc.new{ |n| n + 3 }
-p [1, 2, 3, 4, 5].my_map(proc) { |num| num + 2 }
