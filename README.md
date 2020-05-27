@@ -1,6 +1,6 @@
+<h1 align="center"> My Custom Enumerable Methods<h1>
 
-  
-# My Custom Enumerable Methods
+<div align="center">
   
 [![View Code](https://img.shields.io/badge/View%20-Code-green)](https://github.com/vanheaven-ui/my_enumerables/tree/my_enumerables)
 [![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)](https://github.com/vanheaven-ui/my_enumerables/issues)
@@ -9,9 +9,11 @@
 [![Twitter Follow](https://img.shields.io/badge/Twitter-Ezekiel-%231DA1F2)](https://twitter.com/MworekwaE)
 [![LinkedIn follow](https://img.shields.io/badge/LinkedIn-Ezekiel-%232867B2)](https://www.linkedin.com/in/vanheaven/)
 
+</div>
+
 
 ## 📝 Content
-<a href="#about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a text-align="center" href="#about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#method">Methods</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#ins">Installing</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -73,3 +75,4 @@ Give a ⭐️ if you like this project!
 ## :clap: Acknowledgements
 [Ruby enumerable documentation here:] https://ruby-doc.org/core-2.7.1/Enumerable.html
 
+</div>
