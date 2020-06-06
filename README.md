@@ -59,8 +59,8 @@ This project was completed under microverse remote software development curricul
 
 👤 **Mworekwa Ezekiel**
 
-- Github: [@vanheaven-ui](https://github.com/kevinfrontend)
-- Twitter: [@MworekwaE](https://twitter.com/kevinfrontend)
+- Github: [@vanheaven-ui](https://github.com/vanheaven-ui)
+- Twitter: [@MworekwaE](https://twitter.com/MworekwaE)
 - Linkedin: [@linkedin](https://www.linkedin.com/in/vanheaven/)
 - Email: [ezekiel](mailto:vanheaven6@gmail.com)
 
