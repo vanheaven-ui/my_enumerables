@@ -238,4 +238,43 @@ describe Enumerable do
       end    
     end
   end
+
+  describe '#my_map' do
+  let(:my_proc_h) { proc {|k, v| v * 2}}
+  let(:my_proc) { |x| x + 3 }
+    context 'when no block is given' do
+      it 'returns Enumerator' do
+        expect(a.my_map).to be_instance_of(Enumerator)
+      end
+    end
+    context 'when parameter is not a proc' do
+      it 'raise an argument error' do
+        expect{a.my_map('str')}.to raise_error(ArgumentError)
+      end
+    end
+
+    # context 'when parameter is a proc and block is given' do
+    #   it 'return error message' do
+    #     expect{a.my_map(&my_proc) {|x| x * 2 }}.to raise_error('both block arg and actual block given')
+    #   end
+    # end
+
+    context 'when object is a hash and proc is given' do
+      it 'return array of elements modified by the proc' do
+        expect(c.my_map(&my_proc_h)).to eql([2, 4, 6])
+      end
+    end
+
+    context 'when object is a hash and block is given' do
+      it 'return array of elements modified by the block' do
+        expect(c.my_map{ |k, v| v + 3 }).to eql([4, 5, 6])
+      end
+    end
+
+    context 'when object is either an array or a range and block is given' do
+      it 'return array of elements modified by the block' do
+        expect((1..5).my_map{ |n| n + 3 }).to eql([4, 5, 6, 7, 8])
+      end
+    end
+  end
 end
