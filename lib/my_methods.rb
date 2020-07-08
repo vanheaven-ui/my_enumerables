@@ -50,9 +50,6 @@ module Enumerable
     end
   end
 
-  arr = [1, 2, 3, 4]
-  p arr.select
-
   def my_all?(pattern = nil)
     if pattern.nil?
       if block_given?
@@ -70,9 +67,9 @@ module Enumerable
         return false unless element.match(pattern)
       end
       true
-    elsif pattern.is_a?(Module)
+    elsif pattern.is_a?(Class)
       my_each do |element|
-        return false unless element.is_a?(pattern)
+        return false unless element.is_a?(pattern)        
       end
     else
       my_each do |element|
@@ -219,5 +216,8 @@ def multiply_els(array)
   array.my_inject { |e, num| e * num }
 end
 
-puts multiply_els([2, 4, 5])
+# puts multiply_els([2, 4, 5])
 # rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+
+
+
