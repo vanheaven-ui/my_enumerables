@@ -64,7 +64,7 @@ describe Enumerable do
 
   describe '#my_all?' do
     context 'when no parameter is given and block is given' do
-      it 'returns true when block is true for all the elements' do
+      it 'returns true when the block is true for all the array elements' do
         expect(a.my_all? {|x| x < 6}).to be_truthy
       end
 
@@ -74,7 +74,7 @@ describe Enumerable do
     end
 
     context 'when no parameter is given and no block is given' do
-      it 'returns true when no element of the array is false or nil' do
+      it 'returns true when no elements the array is false or nil' do
         expect(a.my_all?).to be_truthy
       end
 
@@ -84,11 +84,11 @@ describe Enumerable do
     end
 
     context 'when parameter is given and is a Regexp' do
-      it 'returns true when all the elements of the array match parameter' do
+      it 'returns true when all of the array elements match the parameter' do
         expect(e.my_all?(/n/)).to be_truthy
       end
 
-      it 'returns false when one or more elements of the array do not match parameter' do
+      it 'returns false when atleast one of the array elements does not match parameter' do
         expect(e.my_all?(/a/)).to be_falsy
       end   
     end
@@ -110,6 +110,58 @@ describe Enumerable do
 
       it 'returns false when one or more elements of the array do not match the pattern' do
         expect(a.my_all?(1)).to be_falsy
+      end   
+    end
+  end
+
+  describe '#my_any?' do
+    context 'when no parameter is given and block is given' do
+      it 'returns true when block is true for one or more the elements' do
+        expect(a.my_any? {|x| x < 2}).to be_truthy
+      end
+
+      it 'returns false when block is false for any of the elements' do
+        expect(a.my_any? {|x| x > 6}).to be_falsy
+      end
+    end
+
+    context 'when no parameter is given and no block is given' do
+      it 'returns true when atleast one element of the array is not false or nil' do
+        expect(a.my_any?).to be_truthy
+      end
+
+      it 'returns false when any of the array elements is false or nil' do
+        expect([false, nil].my_any?).to be_falsy
+      end   
+    end
+
+    context 'when parameter is given and is a Regexp' do
+      it 'returns true when any of the elements of the array match parameter' do
+        expect(e.my_any?(/a/)).to be_truthy
+      end
+
+      it 'returns false when none of elements of the array matches parameter' do
+        expect(e.my_any?(/t/)).to be_falsy
+      end   
+    end
+
+    context 'when parameter is given and is a Class' do
+      it 'returns true when any of the elements of the array are instances of the given Class' do
+        expect(d.my_any?(Numeric)).to be_truthy
+      end
+
+      it 'returns false when none of elements of the array is an instance of the given Class' do
+        expect(d.my_any?(String)).to be_falsy
+      end   
+    end
+
+    context 'when parameter is given and is a pattern' do
+      it 'returns true when any of the elements of the array matches the pattern ' do
+        expect(a.my_any?(1)).to be_truthy
+      end
+
+      it 'returns false when none of the elements of the array matches the pattern' do
+        expect(e.my_any?(1)).to be_falsy
       end   
     end
   end
