@@ -220,4 +220,3 @@ end
 # rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
 
-

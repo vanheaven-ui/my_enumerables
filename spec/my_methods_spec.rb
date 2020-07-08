@@ -7,6 +7,7 @@ describe Enumerable do
   let(:c) {{a: 1, b: 2, c: 3}}
   let(:d) {[1,2,3,4,false]}
   let(:e) {['ang','eng','ing','ong','ung']}
+  let(:f) {[nil,false,nil,false]}
 
   describe '#my_each' do
     context 'when block is not given' do
@@ -163,6 +164,78 @@ describe Enumerable do
       it 'returns false when none of the elements of the array matches the pattern' do
         expect(e.my_any?(1)).to be_falsy
       end   
+    end
+  end
+
+  describe '#my_none?' do
+    context 'when no parameter is given and block is given' do
+      it 'returns true when block is false for all of the array elements' do
+        expect(a.my_none? {|x| x > 5}).to be_truthy
+      end
+
+      it 'returns false when the block is true for at least one of the array elements' do
+        expect(a.my_none? {|x| x > 4}).to be_falsy
+      end
+    end
+
+    context 'when no parameter is given and no block is given' do
+      it 'returns true when none of the array elements is true' do
+        expect(f.my_none?).to be_truthy
+      end
+
+      it 'returns false when any of the array elements is true' do
+        expect(d.my_none?).to be_falsy
+      end   
+    end
+
+    context 'when parameter is given and is a Regexp' do
+      it 'returns true when none of the elements of the array matches parameter' do
+        expect(e.my_none?(/t/)).to be_truthy
+      end
+
+      it 'returns false when at least one of the elements of the array matches parameter' do
+        expect(e.my_none?(/a/)).to be_falsy
+      end   
+    end
+
+    context 'when parameter is given and is a Class' do
+      it 'returns true when none of the array elements is an instance of the given Class' do
+        expect(e.my_none?(Numeric)).to be_truthy
+      end
+
+      it 'returns false when at least one of the array elements is an instance of the given Class' do
+        expect(d.my_none?(Numeric)).to be_falsy
+      end   
+    end
+
+    context 'when parameter is given and is a pattern' do
+      it 'returns true when none of the elements of the array matches the pattern ' do
+        expect(a.my_none?(6)).to be_truthy
+      end
+
+      it 'returns false when at least one of the array elements matches the pattern' do
+        expect(a.my_none?(1)).to be_falsy
+      end   
+    end
+  end
+
+  describe '#my_count' do
+    context 'when no argument is given and block is given' do
+      it 'returns the number of elements that are true for the block rule' do
+        expect(a.my_count {|x| x > 3}).to be(2)
+      end    
+    end
+
+    context 'when no argument is given and no block is given' do
+      it 'returns the number of elements that are true for the block rule' do
+        expect(a.my_count).to be(a.size)
+      end    
+    end
+
+    context 'when argument is given' do
+      it 'returns the number of elements that are equal to the argument' do
+        expect(a.my_count(2)).to be(1)
+      end    
     end
   end
 end
