@@ -50,6 +50,9 @@ module Enumerable
     end
   end
 
+  arr = [1, 2, 3, 4]
+  p arr.select
+
   def my_all?(pattern = nil)
     if pattern.nil?
       if block_given?
