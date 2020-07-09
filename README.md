@@ -37,13 +37,14 @@ This project was completed under microverse remote software development curricul
 
 - Ruby
 
+## 🔧 Tested with<a name = "with"></a>
+  
+- RSpec 3.5.4
 
 ## 🔴 Live Demo <a name = "ldl"></a>
 
 
 [![Run on Repl.it](https://repl.it/badge/github/vanheaven-ui/my_enumerables)](https://repl.it/@vanheavenui/myenumerables-3)
-
-
 
 ## 🔨 Setup
 
@@ -52,9 +53,16 @@ This project was completed under microverse remote software development curricul
 
 ## 🛠 Installing <a name = "ins"></a>
 
-- run npm install to install the dependencies for the project.
+- run npm install to install the dependencies for the project
+- run bundle init to create a Gemfile
+- add rspec gem in your Gemfile
+- run bundle install to install the gems
 
-## ✒️  Author <a name = "author"></a>
+## 🛠 Testing <a name = "ins"></a>
+
+- run bundle exec rspec
+
+## ✒️  Authors <a name = "author"></a>
 
 👤 **Mworekwa Ezekiel**
 
@@ -62,6 +70,12 @@ This project was completed under microverse remote software development curricul
 - Twitter: [@MworekwaE](https://twitter.com/MworekwaE)
 - Linkedin: [@linkedin](https://www.linkedin.com/in/vanheaven/)
 - Email: [ezekiel](mailto:vanheaven6@gmail.com)
+
+👤 **Lucas Delbel** (Testing with RSpec)
+
+- Github: [@ldelbel](https://github.com/ldelbel)
+- Twitter: [@delbel_lucas](https://twitter.com/delbel_lucas)
+- Linkedin: [lucasdelbel](https://www.linkedin.com/in/lucasdelbel/)
 
 ## 🤝 Contributing
 
@@ -75,6 +89,7 @@ Feel free to check the [issues page](https://github.com/vanheaven-ui/my_enumerab
 Give a ⭐️ if you like this project!
 
 ## :clap: Acknowledgements
-[Ruby enumerable documentation here:] https://ruby-doc.org/core-2.7.1/Enumerable.html
+[Ruby enumerable documentation here:](https://ruby-doc.org/core-2.7.1/Enumerable.html)<br>
+[BetterSpecs for RSpec good practices:](http://www.betterspecs.org/br/#contexts)
 
 </div>
