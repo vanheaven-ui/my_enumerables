@@ -13,7 +13,9 @@
 <a text-align="center" href="#about">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#method">Methods</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#ins">Installing</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#testing">Testing</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#with">Built with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#tested">Tested with</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#ldl">Live Demo</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 <a href="#author">Author</a>
 
@@ -37,7 +39,7 @@ This project was completed under microverse remote software development curricul
 
 - Ruby
 
-## 🔧 Tested with<a name = "with"></a>
+## 🔧 Tested with<a name = "tested"></a>
   
 - RSpec 3.5.4
 
@@ -58,7 +60,7 @@ This project was completed under microverse remote software development curricul
 - add rspec gem in your Gemfile
 - run bundle install to install the gems
 
-## 🛠 Testing <a name = "ins"></a>
+## 🛠 Testing <a name = "testing"></a>
 
 - run bundle exec rspec
 
