@@ -1,4 +1,4 @@
-# rubocop: disable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+# rubocop: disable Metrics/MethodLength, Metrics/ModuleLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 module Enumerable
   def my_each
     index = 0
@@ -67,13 +67,13 @@ module Enumerable
         return false unless element.match(pattern)
       end
       true
-    elsif pattern.is_a?(Module)
+    elsif pattern.is_a?(Class)
       my_each do |element|
         return false unless element.is_a?(pattern)
       end
     else
       my_each do |element|
-        return false unless element === pattern
+        return false unless element.equal?(pattern)
       end
     end
     true
@@ -100,7 +100,7 @@ module Enumerable
       end
     else
       my_each do |element|
-        return true if element === pattern
+        return true if element.equal?(pattern)
       end
     end
     false
@@ -127,7 +127,7 @@ module Enumerable
       end
     else
       my_each do |element|
-        return false if element === pattern
+        return false if element.equal?(pattern)
       end
     end
     true
@@ -146,7 +146,7 @@ module Enumerable
       end
     else
       my_each do |element|
-        count += 1 if element === arg
+        count += 1 if element.equal?(arg)
       end
       count
     end
@@ -216,5 +216,6 @@ def multiply_els(array)
   array.my_inject { |e, num| e * num }
 end
 
-puts multiply_els([2, 4, 5])
-# rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Style/CaseEquality, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+# puts a.my_inject
+# puts multiply_els([2,4,5])
+# rubocop: enable Metrics/MethodLength, Metrics/ModuleLength, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
