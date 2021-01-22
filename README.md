@@ -1,3 +1,5 @@
+<div align="center">
+
 # My Custom Enumerable Methods
   
 [![View Code](https://img.shields.io/badge/View%20-Code-green)](https://github.com/vanheaven-ui/my_enumerables/tree/my_enumerables)
@@ -7,6 +9,7 @@
 [![Twitter Follow](https://img.shields.io/badge/Twitter-Ezekiel-%231DA1F2)](https://twitter.com/MworekwaE)
 [![LinkedIn follow](https://img.shields.io/badge/LinkedIn-Ezekiel-%232867B2)](https://www.linkedin.com/in/vanheaven/)
 
+</div>
 
 ## Content
 
@@ -21,7 +24,7 @@
 
 
 ## About <a name = "about"></a>
-This project was completed under microverse remote software development curriculum. The requirement was to create some custom ruby enumerable methods. The methods created in this project were added to existing Enumerable module so that they emulate the inbuilt ruby methods. 
+This project was completed under the Microverse remote software development curriculum. The requirement was to create some custom Ruby enumerable methods. The methods created in this project were added to existing Enumerable module so that they emulate the inbuilt Ruby methods. 
 
 <h3>Methods <a name = "method"></a></h3>
 <h4>The custom methods created are listed below:</h4>
